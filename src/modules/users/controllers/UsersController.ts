@@ -3,7 +3,7 @@ import ListUserService from '../services/ListUserService';
 import CreateUserService from '../services/CreatUserService';
 import { hash } from 'bcryptjs';
 
-export default class UsersControlles {
+export default class UsersController {
   public async index(request: Request, response: Response): Promise<Response> {
     const listUser = new ListUserService();
 
