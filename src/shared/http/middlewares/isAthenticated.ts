@@ -1,10 +1,10 @@
-import authConfig from "@config/auth";
-import AppError from "@shared/errors/AppError";
-import { NextFunction, Request, Response } from "express";
-import { StringRegexOptions } from "joi";
-import { verify } from "jsonwebtoken";
+import authConfig from '@config/auth';
+import AppError from '@shared/errors/AppError';
+import { NextFunction, Request, Response } from 'express';
+import { StringRegexOptions } from 'joi';
+import { verify } from 'jsonwebtoken';
 
-interface TokenPayload {
+interface ITokenPayload {
   iat: number;
   exp: number;
   sub: StringRegexOptions;
@@ -26,7 +26,7 @@ export default function isAuthenticated(
   try {
     const decodedToken = verify(token, authConfig.jwt.secret);
     // Dub Id do usuário
-    const { sub } = decodedToken as TokenPayload;
+    const { sub } = decodedToken as ITokenPayload;
 
     request.user = {
       id: sub,
