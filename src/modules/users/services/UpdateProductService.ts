@@ -1,44 +1,40 @@
 import AppError from '@shared/errors/AppError';
+import fs from 'fs';
+import path from 'path';
 import { getCustomRepository } from 'typeorm';
-import Product from '../typeorm/entities/Product';
-import ProductRepository from '../typeorm/repositories/ProductsRepository';
+import User from '../typeorm/entities/User';
+import UserRepository from '../typeorm/repositories/UsersRepository';
+import uploadConfig from '@config/upload';
 
 interface IRequest {
-  id: string;
-  name: string;
-  price: number;
-  quantity: number;
+  users_id: string;
+  avatarFilename: string;
 }
 
-class UpdateProductService {
-  public async execute({
-    id,
-    name,
-    price,
-    quantity,
-  }: IRequest): Promise<Product> {
-    const productsRepository = getCustomRepository(ProductRepository);
+class UpdateUserService {
+  public async execute({ users_id, avatarFilename }: IRequest): Promise<User> {
+    const usersRepository = getCustomRepository(UserRepository);
 
-    const product = await productsRepository.findOne(id);
+    const user = await usersRepository.findById(users_id);
 
-    if (!product) {
-      throw new AppError('Product not found.');
+    if (!user) {
+      throw new AppError('User not found.');
     }
 
-    const productExists = await productsRepository.findByName(name);
+    if (user.avatar) {
+      const userAvatarFilePath = path.join(uploadConfig.diretory, user.avatar);
+      const userAvatarFileExists = await fs.promises.stat(userAvatarFilePath);
 
-    if (productExists && name != product.name) {
-      throw new AppError('There is already one product with this name');
+      if (userAvatarFileExists) {
+        await fs.promises.unlink(userAvatarFilePath);
+      }
     }
+    user.avatar = avatarFilename;
 
-    product.name = name;
-    product.price = price;
-    product.quantity = quantity;
+    await usersRepository.save(user);
 
-    await productsRepository.save(product);
-
-    return product;
+    return user;
   }
 }
 
-export default UpdateProductService;
+export default UpdateUserService;
