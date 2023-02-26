@@ -11,7 +11,7 @@ interface IRequest {
   avatarFilename: string;
 }
 
-class UpdateUserService {
+class UpdateUserAvatarService {
   public async execute({ users_id, avatarFilename }: IRequest): Promise<User> {
     const usersRepository = getCustomRepository(UserRepository);
 
@@ -37,4 +37,4 @@ class UpdateUserService {
   }
 }
 
-export default UpdateUserService;
+export default UpdateUserAvatarService;
