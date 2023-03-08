@@ -10,7 +10,7 @@ interface IParseMailTemplate {
 }
 
 export default class handlebarMailTemplate {
-  public async parde({
+  public async parse({
     template,
     variables,
   }: IParseMailTemplate): Promise<string> {
