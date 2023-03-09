@@ -54,9 +54,6 @@ export class UpdateProfileService {
 
     await usersRepository.save(user);
 
-
-
-
     return user;
   }
 }
