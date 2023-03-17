@@ -9,7 +9,7 @@ interface IRequest {
 }
 
 export default class CreateCustomerService {
-  public async execute({ name, email, password }: IRequest): Promise<Customer> {
+  public async execute({ name, email }: IRequest): Promise<Customer> {
     const customersRepository = getCustomRepository(CustomersRepository);
     const emailExist = await customersRepository.findByEmail(email);
 
@@ -22,7 +22,7 @@ export default class CreateCustomerService {
       email,
     });
 
-    await customersRepository.save();
+    await customer.save();
 
     return customer;
   }
