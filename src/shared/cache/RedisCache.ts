@@ -1,4 +1,4 @@
-import Redis, {Redis as RedisClient} from 'ioredis';
+import Redis, { Redis as RedisClient } from 'ioredis';
 import cacheConfig from '@config/cache';
 
 class RedisCache {
@@ -22,14 +22,15 @@ class RedisCache {
     if (!data) {
       return null;
     }
+
     const parsedData = JSON.parse(data) as T;
 
     return parsedData;
   }
-  
+
   public async invalidate(key: string): Promise<void> {
     await this.client.del(key);
   }
 }
 
-export default RedisCache;
+export default new RedisCache();
