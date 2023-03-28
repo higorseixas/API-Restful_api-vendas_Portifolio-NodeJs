@@ -1,8 +1,8 @@
 // import AppError from '@shared/errors/AppError';
 import AppError from '@shared/errors/AppError';
 import { getCustomRepository } from 'typeorm';
-import User from '../typeorm/entities/User';
-import UserRepository from '../typeorm/repositories/UsersRepository';
+import User from '../infra/typeorm/entities/User';
+import UserRepository from '../infra/typeorm/repositories/UsersRepository';
 
 interface IRequest {
   user_id: string;
@@ -18,6 +18,6 @@ export class ShowProfileService {
       throw new AppError('User not found.');
     }
 
-    return user;
+    return s;
   }
 }

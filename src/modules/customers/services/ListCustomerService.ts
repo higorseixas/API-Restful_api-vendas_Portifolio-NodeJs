@@ -1,8 +1,8 @@
 import { getCustomRepository } from 'typeorm';
 import { pagination } from 'typeorm-pagination';
 import { paginate } from 'typeorm-pagination/dist/helpers/pagination';
-import Customer from '../typeorm/entities/Customer';
-import CustomersRepository from '../typeorm/repositories/CustomersRepository';
+import Customer from '../infra/typeorm/entities/Customer';
+import CustomersRepository from '../infra/typeorm/repositories/CustomersRepository';
 
 interface IPaginateCustomer {
   from: number;
