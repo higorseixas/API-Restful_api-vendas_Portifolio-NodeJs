@@ -12,7 +12,6 @@ export class AddCustomerIdToOrders1678719427447 implements MigrationInterface {
       new TableColumn({
         name: 'customer_id',
         type: 'uuid',
-        isPrimary: true,
         isNullable: true,
       }),
     );
