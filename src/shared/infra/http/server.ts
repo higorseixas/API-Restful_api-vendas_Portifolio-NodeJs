@@ -4,6 +4,7 @@ import 'dotenv/config';
 import express, { NextFunction, Request, Response } from 'express';
 import 'express-async-errors';
 import cors from 'cors';
+import '@shared/container';
 import { errors } from 'celebrate';
 import { pagination } from 'typeorm-pagination';
 import routes from './routes';
@@ -20,7 +21,7 @@ app.use(rateLimiter);
 
 app.use(pagination);
 
-app.use('/files', express.static(uploadConfig.diretory));
+app.use('/files', express.static(uploadConfig.directory));
 app.use(routes);
 
 app.use(errors());
