@@ -1,18 +1,19 @@
 import AppError from '@shared/errors/AppError';
 import { inject, injectable } from 'tsyringe';
-import { getCustomRepository } from 'typeorm';
+import { IShowUser } from '../domain/models/IShowUser';
+import { IUsersRepository } from '../domain/repositories/IUsersRepository';
 import User from '../infra/typeorm/entities/User';
-import UserRepository from '../infra/typeorm/repositories/UsersRepository';
 
-interface IRequest {
-  id: string;
-}
 
-class ShowUserService {
-  public async execute({ id }: IRequest): Promise<User> {
-    const usersRepository = getCustomRepository(UserRepository);
+@injectable()
+export default class ShowUserService {
+  constructor(
+    @inject('UsersRepository')
+    private usersRepository: IUsersRepository,
+  ) {}
 
-    const users = await usersRepository.findOne(id);
+  public async execute({ id }: IShowUser): Promise<User> {
+    const users = await this.usersRepository.findById(id);
 
     if (!users) {
       throw new AppError('Product not found.');
@@ -21,5 +22,3 @@ class ShowUserService {
     return users;
   }
 }
-
-export default ShowUserService;

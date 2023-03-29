@@ -4,9 +4,8 @@ import Product from '../entities/Product';
 import { IFindProducts } from '@modules/products/domain/models/IFindProducts';
 import { ICreateProduct } from '@modules/products/domain/models/ICreateProduct';
 import { IUpdateStockProduct } from '@modules/products/domain/models/IUpdateStockProduct';
-import { IProduct } from '@modules/products/domain/models/IProduct';
 
-class ProductsRepository implements IProductsRepository {
+export default class ProductsRepository implements IProductsRepository {
   private ormRepository: Repository<Product>;
 
   constructor() {
