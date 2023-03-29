@@ -1,13 +1,17 @@
 // import AppError from '@shared/errors/AppError';
-import Customer from '@modules/customers/infra/typeorm/entities/Customer';
-import CustomersRepository from '@modules/customers/infra/typeorm/repositories/CustomersRepository';
-import { getCustomRepository } from 'typeorm';
+import { inject, injectable } from 'tsyringe';
+import { IUser } from '../domain/models/IUser';
+import { IUsersRepository } from '../domain/repositories/IUsersRepository';
 
-export default class ListCustomerService {
-  public async execute(): Promise<Customer[]> {
-    const customerRepository = getCustomRepository(CustomersRepository);
+@injectable()
+class ListUserService {
+  constructor(
+    @inject('UsersRepository')
+    private usersRepository: IUsersRepository,
+  ) {}
 
-    const users = customerRepository.find();
+  public async execute(): Promise<IUser[]> {
+    const users = this.usersRepository.findAll();
 
     return users;
   }

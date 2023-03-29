@@ -1,4 +1,5 @@
 import AppError from '@shared/errors/AppError';
+import { inject, injectable } from 'tsyringe';
 import { getCustomRepository } from 'typeorm';
 import User from '../infra/typeorm/entities/User';
 import UserRepository from '../infra/typeorm/repositories/UsersRepository';
